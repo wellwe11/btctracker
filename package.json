@@ -1,0 +1,60 @@
+{
+  "name": "btctracker",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "npx tsx watch backend/server.ts",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@prisma/adapter-better-sqlite3": "^7.5.0",
+    "@prisma/client": "^7.5.0",
+    "@reduxjs/toolkit": "^2.11.2",
+    "@tanstack/react-query": "^5.90.21",
+    "@tanstack/react-query-devtools": "^5.91.3",
+    "@types/d3": "^7.4.3",
+    "better-sqlite3": "^12.6.2",
+    "cors": "^2.8.6",
+    "d3": "^7.9.0",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "next": "16.1.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-redux": "^9.2.0"
+  },
+  "devDependencies": {
+    "@prisma/config": "^7.5.0",
+    "@tailwindcss/postcss": "^4",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^20.19.37",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.6",
+    "nodemon": "^3.1.14",
+    "prisma": "^7.5.0",
+    "tailwindcss": "^4",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
+  },
+  "description": "Dashboard that displays active prices for different bitcoins.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wellwe11/btctracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/wellwe11/btctracker/issues"
+  },
+  "homepage": "https://github.com/wellwe11/btctracker#readme"
+}
