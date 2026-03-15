@@ -13,6 +13,8 @@ export default async function Home() {
     queryFn: getBtcPrice,
   });
 
+)
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       {/** We dehydrate the data sent with the unique queryClient */}

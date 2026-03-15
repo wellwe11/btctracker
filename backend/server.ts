@@ -37,5 +37,5 @@ app.post("/api/prices", async (req: Request, res: Response) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server ready at http://localhost:${PORT}`);
+  console.log(`Server ready at http://localhost:${PORT}`);
 });

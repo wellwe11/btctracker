@@ -18,6 +18,8 @@ Dashboard that displays active prices for different bitcoins.
 
 - TypeScript <br/>
   To prevent unpredictable behavior during runtime and ensure the safety of accurate, real-time data.
+  - Zod <br/>
+    For security during runtime, since we are working with real-time data, and simulating an exchange of coins.
 
 - D3.js <br/>
   For clean and accurate data visualization.
