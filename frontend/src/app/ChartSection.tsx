@@ -1,6 +1,6 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
-import { getBtcPrice } from "@/frontend/lib/api";
+import { getBtcPrice } from "@/lib/api";
 
 const ChartSection = () => {
   const { data } = useQuery({

@@ -1,7 +1,7 @@
-import { getBtcPrice } from "@/frontend/lib/api";
+import { getBtcPrice } from "@/lib/api";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import ChartSection from "./ChartSection";
-import { getQueryClient } from "@/frontend/lib/query-client";
+import { getQueryClient } from "@/lib/query-client";
 
 export default async function Home() {
   // Create a fresh, temporary client for each server-request.
@@ -12,8 +12,6 @@ export default async function Home() {
     queryKey: ["btc-price"],
     queryFn: getBtcPrice,
   });
-
-)
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

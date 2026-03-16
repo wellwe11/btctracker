@@ -1,4 +1,4 @@
-import { BtcPrice } from "@/frontend/types/crypto";
+import { BtcPrice } from "@/types/crypto";
 
 export const getBtcPrice = async (): Promise<BtcPrice> => {
   const res = await fetch(

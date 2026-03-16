@@ -1,41 +1,67 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import cors from "cors";
-import { prisma } from "./db";
+import { DatabaseSync } from "node:sqlite";
+import { z } from "zod";
 
 const app = express();
 const PORT = 5001;
 
+const db = new DatabaseSync("./btc.db");
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS prices (
+    symbol TEXT PRIMARY KEY,
+    price REAL,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+  )
+`);
+
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Server is sprinting!");
+const PriceSchema = z.object({
+  symbol: z.string(),
+  price: z.string(),
 });
 
-app.get("/api/prices", async (req: Request, res: Response) => {
+app.get("/api/update-price", async (req, res) => {
   try {
-    const prices = await prisma.price.findMany({
-      orderBy: { timestamp: "desc" },
-    });
-    res.json(prices);
+    const response = await fetch(
+      "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+    );
+    const rawData = await response.json();
+
+    const validated = PriceSchema.parse(rawData);
+    const btcPrice = parseFloat(validated.price);
+
+    const insert = db.prepare(`
+      INSERT INTO prices (symbol, price, updatedAt) 
+      VALUES (?, ?, CURRENT_TIMESTAMP)
+      ON CONFLICT(symbol) DO UPDATE SET 
+        price = excluded.price, 
+        updatedAt = CURRENT_TIMESTAMP
+    `);
+
+    insert.run("BTC", btcPrice);
+
+    console.log(`[API] Updated BTC: $${btcPrice}`);
+    res.json({ symbol: "BTC", price: btcPrice, status: "success" });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.error("[API] Sync Error:", error);
+    res.status(500).json({ error: "Failed to sync price" });
   }
 });
 
-app.post("/api/prices", async (req: Request, res: Response) => {
-  try {
-    const { coin, amount } = req.body;
-    const newPrice = await prisma.price.create({
-      data: { coin, amount },
-    });
-    res.json(newPrice);
-  } catch (error) {
-    res.status(500).json({ error: "Could not save price" });
-  }
+app.get("/", (req, res) => {
+  res.send("BTC Tracker API is running! Try /api/update-price");
+});
+
+app.get("/api/price", (req, res) => {
+  const query = db.prepare("SELECT * FROM prices WHERE symbol = ?");
+  const row = query.get("BTC");
+  res.json(row || { error: "No data found" });
 });
 
 app.listen(PORT, () => {
-  console.log(`Server ready at http://localhost:${PORT}`);
+  console.log(`Backend live at http://localhost:${PORT}`);
 });

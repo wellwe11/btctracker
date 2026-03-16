@@ -1,7 +1,0 @@
--- CreateTable
-CREATE TABLE "Price" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "coin" TEXT NOT NULL,
-    "amount" REAL NOT NULL,
-    "timestamp" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
