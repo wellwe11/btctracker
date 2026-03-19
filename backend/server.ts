@@ -3,6 +3,33 @@ import cors from "cors";
 import { DatabaseSync } from "node:sqlite";
 import { z } from "zod";
 
+// The backend is going to fetch data for around 20-30 different coins, and update them each 5 seconds.
+// It is going to divide coins with custom API
+// Once a coin is selected for preview, it will pause fetching other coins, and only update current coin
+// If coin is de-selected, code will return to fetching code for all coins every 5 seconds.
+
+// A coins object will look like so:
+// If no coin is selected:
+// User can toggle between time-periods, so, 24 hour, 48 hour, 1 week, 2 week, 1 month, 3 month, 6 month.
+// It will fetch the history of coin for specified time-period
+// Object will look like:
+/**
+ * {
+ * coin: "name",
+ * histoy:
+ *  [
+ *    {
+ *      timeStamp: 123125154,
+ *      value: 1241632
+ *     },
+ * *    {
+ *      timeStamp: 1234634,
+ *      value: 122352
+ *     }...
+ *   ]
+ * }
+ */
+
 const app = express();
 const PORT = 5001;
 
