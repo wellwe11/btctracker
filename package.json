@@ -7,5 +7,9 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently --kill-others -n \"NEXT,API\" -c \"cyan,magenta\" \"npm run dev --prefix frontend\" \"npm run dev --prefix backend\""
+  },
+  "dependencies": {
+    "jotai": "^2.18.1",
+    "jotai-family": "^1.0.1"
   }
 }

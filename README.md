@@ -10,6 +10,10 @@ Dashboard that displays active prices for different bitcoins.
 - Redux Toolkit <br/>
   To handle the wallet balance, trade history, and minor calculations.
 
+- Jotai
+  Create local single-atomed states for each graph on the dashboard. Each atom is related to an atom-family.
+  Once user interacts with the dash-board, the atom-family updates and updates the correct child-atom. It then finds the related component, and updates only this component.
+
 - TanStack Query v5 <br/>
   By using Hydration Boundaries, the app pre-fetches data to ensure accurate rendering of BTC information. This allows precise data to be handed to the client, with 5-second interval polling to keep the dashboard live.
 
